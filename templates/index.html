@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with Image</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #left-section {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #right-section {
+            flex: 1;
+            padding: 20px;
+        }
+
+        #form-container {
+            background-color: #e9e9eb40;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #7c6bc8;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: auto;
+            width: 50%;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #form-container h2 {
+            color: #7c6bc8;
+        }
+
+        #form-container p {
+            margin-top: 1px;
+            margin-bottom: 20px;
+            color: #65646b;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="left-section">
+        <img src="{{ url_for('static', filename='newsletter.png') }}" alt="Image">
+    </div>
+
+    <div id="right-section">
+        <div id="form-container">
+            <h3>GET OUR WEEKLY NEWSLETTER</h3>
+            <p>Stay up-to-date with our latest news, updates, and exclusive offers by subscribing to our newsletter. Enter your name and email below to join our community!</p>
+
+            <form action="#" method="post">
+                <input type="text" id="name" name="name" placeholder="name"required>
+
+                <input type="email" id="email" name="email" placeholder="email" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
