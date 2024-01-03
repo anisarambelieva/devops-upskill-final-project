@@ -76,7 +76,7 @@ jobs:
       with:
         args: >
           -Dsonar.organization=anisarambelieva
-          -Dsonar.projectKey=anisarambelieva_devops-programme
+          -Dsonar.projectKey=anisarambelieva_devops-upskill-final-project
   
   # Upgrade snyk plan to run scan 
   # snyk:
