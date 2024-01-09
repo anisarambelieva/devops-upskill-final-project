@@ -26,7 +26,7 @@ resource "aws_codepipeline" "codepipeline" {
       owner            = "ThirdParty"
       provider         = "GitHub"
       version          = "1"
-      output_artifacts = ["source_output"]
+      output_artifacts = ["source_code"]
 
       configuration = {
         OAuthToken           = var.github_oauth_token
@@ -46,12 +46,11 @@ resource "aws_codepipeline" "codepipeline" {
       category         = "Build"
       owner            = "AWS"
       provider         = "CodeBuild"
-      input_artifacts  = ["source_output"]
-      output_artifacts = ["plan_output"]
+      input_artifacts  = ["source_code"]
       version          = "1"
 
       configuration = {
-        ProjectName = "provision-infrastructure-for-newsletter-subscription-app"
+        ProjectName = aws_codebuild_project.codebuild_project_plan_stage.name
       }
     }
   }
@@ -59,14 +58,17 @@ resource "aws_codepipeline" "codepipeline" {
   stage {
     name = "Apply" 
 
-    action { }
-  }
-}
+    action  {
+        name = "Apply"
+        category = "Build"
+        provider = "CodeBuild"
+        version = "1"
+        owner = "AWS"
+        input_artifacts = ["source_code"]
 
-
-resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = "codepipeline-bucket"
-}
+        configuration = {
+            ProjectName = aws_codebuild_project.codebuild_project_apply_stage.name
+        }
 
 data "aws_iam_policy_document" "assume_role" {
   statement {
