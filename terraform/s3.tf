@@ -9,3 +9,15 @@ resource "aws_s3_bucket_versioning" "terraform-backend-bucket-versioning" {
     status = "Enabled"
   }
 }
+
+resource "aws_s3_bucket" "codepipeline-artifacts-bucket" {
+  bucket = var.codepipeline-artifacts-bucket
+}
+
+resource "aws_s3_bucket_versioning" "codepipeline-artifacts-bucket-versioning" {
+  bucket = aws_s3_bucket.codepipeline-artifacts-bucket.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}

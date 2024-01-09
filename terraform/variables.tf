@@ -21,6 +21,12 @@ variable "terraform_backend_bucket" {
     default     = "terraform-backend"
 }
 
+variable "codepipeline-artifacts-bucket" {
+    type        = string
+    description = "S3 bucket for storing the CodePipeline artifacts"
+    default     = "codepipeline-artifacts"
+}
+
 variable "terraform_state_object" {
     type        = string
     description = "S3 object name for the Terraform state"

@@ -67,7 +67,12 @@ data "aws_iam_policy_document" "codepipeline-policy-document" {
 
     statement{
         actions = ["s3:*"]
-        resources = ["${aws_s3_bucket.terraform_backend_bucket.arn}/*"]
+        resources = [
+          aws_s3_bucket.terraform_backend_bucket.arn,
+          "${aws_s3_bucket.terraform_backend_bucket.arn}/*",
+          aws_s3_bucket.codepipeline-artifacts-bucket.arn,
+          "${aws_s3_bucket.codepipeline-artifacts-bucket.arn}/*"
+          ]
         effect = "Allow"
     }
 }
