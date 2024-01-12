@@ -1,15 +1,20 @@
+resource "aws_codestarconnections_connection" "github-connection" {
+  name          = "github-connection"
+  provider_type = "GitHub"
+}
+
 resource "aws_codepipeline" "codepipeline" {
   name     = "provision-infrastructure-pipeline"
-  role_arn = aws_iam_role.codepipeline_role.arn
+  role_arn = aws_iam_role.codepipeline-role.arn
 
   artifact_store {
-    location = aws_s3_bucket.codepipeline_bucket.bucket
+    location = aws_s3_bucket.codepipeline-artifacts-bucket.bucket
     type     = "S3"
 
-    encryption_key {
-      id   = data.aws_kms_alias.s3kmskey.arn
-      type = "KMS"
-    }
+    # encryption_key {
+    #   id   = data.aws_kms_alias.s3kmskey.arn
+    #   type = "KMS"
+    # }
   }
 
   stage {
@@ -18,17 +23,16 @@ resource "aws_codepipeline" "codepipeline" {
     action {
       name             = "Source"
       category         = "Source"
-      owner            = "ThirdParty"
-      provider         = "GitHub"
+      owner            = "AWS"
+      provider         = "CodeStarSourceConnection"
       version          = "1"
       output_artifacts = ["source_code"]
 
       configuration = {
-        OAuthToken           = var.github_oauth_token
-        Owner                = var.repo_owner
-        Repo                 = var.repo_name
-        Branch               = var.branch
-        PollForSourceChanges = var.poll_source_changes
+        ConnectionArn        = aws_codestarconnections_connection.github-connection.arn
+        FullRepositoryId     = "${var.git_owner}/${var.git_repo}"
+        BranchName           = var.git_branch
+        DetectChanges        = false # CodePipeline does not start your pipeline on new commits
       }
     }
   }
@@ -68,6 +72,6 @@ resource "aws_codepipeline" "codepipeline" {
   }
 }
 
-data "aws_kms_alias" "s3kmskey" {
-  name = "alias/myKmsKey"
-}
+# data "aws_kms_alias" "s3kmskey" {
+#   name = "alias/myKmsKey"
+# }

@@ -10,8 +10,8 @@ data "aws_iam_policy_document" "codebuild-policy-document" {
     statement{
         actions = ["s3:*"]
         resources = [
-          "${aws_s3_bucket.terraform-backend-bucket.arn}/*",
-          "${aws_s3_bucket.terraform-backend-bucket.arn}"
+          "${data.aws_s3_bucket.terraform-backend-bucket.arn}/*",
+          "${data.aws_s3_bucket.terraform-backend-bucket.arn}"
         ]
         effect = "Allow"
     }
@@ -59,8 +59,8 @@ data "aws_iam_policy_document" "codepipeline-policy-document" {
     statement{
         actions = ["codebuild:*"]
         resources = [
-          "arn:aws:codebuild:${var.aws_region}:${var.account_id}:project/${var.codebuild_plan_project_name}",
-          "arn:aws:codebuild:${var.aws_region}:${var.account_id}:project/${var.codebuild_apply_project_name}"
+          "arn:aws:codebuild:${var.region}:${var.account_id}:project/${var.codebuild_plan_project_name}",
+          "arn:aws:codebuild:${var.region}:${var.account_id}:project/${var.codebuild_apply_project_name}"
           ]
         effect = "Allow"
     }
@@ -68,11 +68,17 @@ data "aws_iam_policy_document" "codepipeline-policy-document" {
     statement{
         actions = ["s3:*"]
         resources = [
-          aws_s3_bucket.terraform_backend_bucket.arn,
-          "${aws_s3_bucket.terraform_backend_bucket.arn}/*",
+          data.aws_s3_bucket.terraform-backend-bucket.arn,
+          "${data.aws_s3_bucket.terraform-backend-bucket.arn}/*",
           aws_s3_bucket.codepipeline-artifacts-bucket.arn,
           "${aws_s3_bucket.codepipeline-artifacts-bucket.arn}/*"
           ]
+        effect = "Allow"
+    }
+
+    statement{
+        actions = ["codestar-connections:UseConnection"]
+        resources = [aws_codestarconnections_connection.github-connection.arn]
         effect = "Allow"
     }
 }

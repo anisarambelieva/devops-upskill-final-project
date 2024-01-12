@@ -8,11 +8,6 @@ resource "aws_dynamodb_table" "newsletter-subcriptions-table" {
     type = "S"
   }
 
-  attribute {
-    name = "Name"
-    type = "S"
-  }
-
   ttl {
     attribute_name = "TTL"
     enabled        = false
