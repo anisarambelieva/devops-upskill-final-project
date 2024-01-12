@@ -1,2 +1,4 @@
 .env
 __pycache__
+terraform-initial-setup/.terraform
+terraform-initial-setup/.terraform.lock.hcl
