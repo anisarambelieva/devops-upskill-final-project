@@ -1,4 +1,5 @@
-# This resource was created manually
+# This resource is created manually
+# because of the terraform dependency
 # resource "aws_s3_bucket" "terraform-backend-bucket" {
 #   bucket = var.terraform_backend_bucket
 # }
