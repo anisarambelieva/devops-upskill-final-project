@@ -10,9 +10,17 @@ data "aws_iam_policy_document" "codebuild-policy-document" {
     statement{
         actions = ["s3:*"]
         resources = [
+          data.aws_s3_bucket.terraform-backend-bucket.arn,
           "${data.aws_s3_bucket.terraform-backend-bucket.arn}/*",
-          "${data.aws_s3_bucket.terraform-backend-bucket.arn}"
+          aws_s3_bucket.codepipeline-artifacts-bucket.arn,
+          "${aws_s3_bucket.codepipeline-artifacts-bucket.arn}/*"
         ]
+        effect = "Allow"
+    }
+
+    statement{
+        actions = ["dynamodb:*"]
+        resources = ["*"]
         effect = "Allow"
     }
 }
