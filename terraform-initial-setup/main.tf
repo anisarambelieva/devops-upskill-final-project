@@ -7,9 +7,9 @@ terraform {
   }
   
   backend "s3" {
-    bucket         = var.terraform_backend_bucket
-    key            = var.terraform_state_object
-    region         = var.region
+    bucket         = "terraform-backend-for-newsletter-subscriptions-app"
+    key            = "terraform.tfstate"
+    region         = "eu-west-1"
     encrypt        = true
   }
 }
