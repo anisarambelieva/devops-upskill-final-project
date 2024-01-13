@@ -1,0 +1,16 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - cd terraform-app
+      - echo "Pre-build phase"
+ 
+  build:
+    commands:
+      - terraform init -input=false
+      - terraform plan -out tfplan
+      - echo "Build phase"
+
+artifacts:
+  files:
+    - '**/*'
