@@ -21,7 +21,7 @@ resource "aws_codepipeline" "codepipeline" {
       owner            = "AWS"
       provider         = "CodeStarSourceConnection"
       version          = "1"
-      output_artifacts = ["source_code"]
+      output_artifacts = ["SourceOutput"]
 
       configuration = {
         ConnectionArn        = aws_codestarconnections_connection.github-connection.arn
@@ -40,7 +40,8 @@ resource "aws_codepipeline" "codepipeline" {
       category         = "Build"
       owner            = "AWS"
       provider         = "CodeBuild"
-      input_artifacts  = ["source_code"]
+      input_artifacts  = ["SourceOutput"]
+      output_artifacts = ["PlanOutput"]
       version          = "1"
 
       configuration = {
@@ -58,7 +59,7 @@ resource "aws_codepipeline" "codepipeline" {
         provider = "CodeBuild"
         version = "1"
         owner = "AWS"
-        input_artifacts = ["source_code"]
+        input_artifacts = ["PlanOutput"]
 
         configuration = {
             ProjectName = aws_codebuild_project.codebuild_project_apply_stage.name
