@@ -2,9 +2,10 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - terraform init
-      - terraform validate
+      - echo "Pre-build phase"
+      - cd terraform-app
  
   build:
     commands:
-      - terraform apply
+      - echo "Build phase"
+      - terraform apply tfplan
