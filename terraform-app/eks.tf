@@ -49,7 +49,7 @@ module "eks" {
   version = "17.10.0"
 
   cluster_name    = var.cluster_name
-  cluster_version = "1.17"
+  cluster_version = "1.22"
   cluster_endpoint_private_access = true 
 
   subnets      = module.vpc.private_subnets
