@@ -6,7 +6,7 @@ data "aws_availability_zones" "available" { }
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.0.0"
+  version = "5.5.1"
 
   name                 = "eks-vpc"
   cidr                 = "10.0.0.0/16"
@@ -46,7 +46,7 @@ resource "aws_security_group" "worker_group_mgmt_one" {
 
 module "eks" {
   source       = "terraform-aws-modules/eks/aws"
-  version = "12.2.0"
+  version = "19.21.0"
 
   cluster_name    = var.cluster_name
   cluster_version = "1.17"
