@@ -23,6 +23,12 @@ data "aws_iam_policy_document" "codebuild-policy-document" {
         resources = ["*"]
         effect = "Allow"
     }
+
+    statement{
+        actions = ["ecr:*"]
+        resources = ["*"]
+        effect = "Allow"
+    }
 }
 
 resource "aws_iam_policy" "codebuild-policy" {
@@ -68,7 +74,8 @@ data "aws_iam_policy_document" "codepipeline-policy-document" {
         actions = ["codebuild:*"]
         resources = [
           "arn:aws:codebuild:${var.region}:${var.account_id}:project/${var.codebuild_plan_project_name}",
-          "arn:aws:codebuild:${var.region}:${var.account_id}:project/${var.codebuild_apply_project_name}"
+          "arn:aws:codebuild:${var.region}:${var.account_id}:project/${var.codebuild_apply_project_name}",
+          "arn:aws:codebuild:${var.region}:${var.account_id}:project/${var.codebuild_deploy_project_name}"
           ]
         effect = "Allow"
     }

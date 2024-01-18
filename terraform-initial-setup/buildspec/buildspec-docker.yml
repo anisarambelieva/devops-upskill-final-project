@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 933920645082.dkr.ecr.eu-west-1.amazonaws.com
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -t newsletter-subscriptions-app-images:0.1 .
+      - docker tag newsletter-subscriptions-app-images:0.1 933920645082.dkr.ecr.eu-west-1.amazonaws.com/newsletter-subscriptions-app-images:0.1      
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 933920645082.dkr.ecr.eu-west-1.amazonaws.com/newsletter-subscriptions-app-images:0.1
