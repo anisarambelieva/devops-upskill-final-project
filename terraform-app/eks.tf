@@ -46,14 +46,18 @@ resource "aws_security_group" "worker_group_mgmt_one" {
 
 module "eks" {
   source       = "terraform-aws-modules/eks/aws"
-  version = "19.21.0"
+  version = "17.10.0"
 
   cluster_name    = var.cluster_name
   cluster_version = "1.17"
-  cluster_create_timeout = "1h"
   cluster_endpoint_private_access = true 
 
-  subnets         = module.vpc.private_subnets
+  cluster_timeouts = {
+    create = "25m"
+    delete = "10m"
+  }
+
+  subnet_ids      = module.vpc.private_subnets
   vpc_id          = module.vpc.vpc_id
 
   worker_groups = [
