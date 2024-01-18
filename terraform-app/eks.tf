@@ -52,12 +52,7 @@ module "eks" {
   cluster_version = "1.17"
   cluster_endpoint_private_access = true 
 
-  cluster_timeouts = {
-    create = "25m"
-    delete = "10m"
-  }
-
-  subnet_ids      = module.vpc.private_subnets
+  subnets      = module.vpc.private_subnets
   vpc_id          = module.vpc.vpc_id
 
   worker_groups = [
