@@ -83,4 +83,34 @@ resource "aws_codepipeline" "codepipeline" {
       }
     }
   }
+
+
+  stage {
+    name = "Approve"
+
+    action {
+        name = "Approval"
+        category = "Approval"
+        provider = "Manual"
+        version = "1"
+        owner = "AWS"
+      }
+  }
+  
+  stage {
+    name = "Destroy"
+
+    action {
+        name = "Destroy"
+        category = "Build"
+        provider = "CodeBuild"
+        version = "1"
+        owner = "AWS"
+        input_artifacts  = ["PlanOutput"]
+
+        configuration = {
+            ProjectName = aws_codebuild_project.codebuild_project_destroy_stage.name
+      }
+    }
+  }
 }

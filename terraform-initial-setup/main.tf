@@ -8,7 +8,7 @@ terraform {
   
   backend "s3" {
     bucket         = "terraform-backend-for-newsletter-subscriptions-app"
-    key            = "terraform.tfstate"
+    key            = "initial-setup/terraform.tfstate"
     region         = "eu-west-1"
     encrypt        = true
   }

@@ -46,6 +46,12 @@ variable "codebuild_deploy_project_name" {
   default = "deploy-codebuild-project" 
 }
 
+variable "codebuild_destroy_project_name" {
+  type = string
+  description = "CodeBuild project name for the Terraform destroy stage"
+  default = "destroy-codebuild-project" 
+}
+
 variable "codebuild_policy_name" {
   type = string
   description = "IAM policy name for the CodeBuild projects"
