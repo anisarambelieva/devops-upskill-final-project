@@ -8,11 +8,6 @@ resource "aws_dynamodb_table" "newsletter-subcriptions-table" {
     type = "S"
   }
 
-  ttl {
-    attribute_name = "TTL"
-    enabled        = false
-  }
-
   tags = {
     Name        = "newsletter-dynamodb-table"
     Project     = "Telerik Upskill"
