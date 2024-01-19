@@ -41,6 +41,18 @@ data "aws_iam_policy_document" "codebuild-policy-document" {
         resources = ["*"]
         effect = "Allow"
     }
+    
+    statement{
+        actions = ["eks:*"]
+        resources = ["*"]
+        effect = "Allow"
+    }
+
+    statement{
+        actions = ["autoscaling:*"]
+        resources = ["*"]
+        effect = "Allow"
+    }
 }
 
 resource "aws_iam_policy" "codebuild-policy" {
