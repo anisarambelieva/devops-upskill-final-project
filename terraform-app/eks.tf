@@ -1,3 +1,11 @@
+data "aws_eks_cluster" "cluster" {
+  name = module.eks.cluster_id
+}
+
+data "aws_eks_cluster_auth" "cluster" {
+  name = module.eks.cluster_id
+}
+
 data "aws_availability_zones" "available" { }
 
 module "vpc" {
@@ -59,4 +67,57 @@ module "eks" {
       additional_security_group_ids = [aws_security_group.worker_group_mgmt_one.id]
     },
   ]
+}
+
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+  load_config_file       = false
+  version                = "~> 1.11"
+}
+
+resource "kubernetes_deployment" "deployment" {
+  metadata {
+    name = "newsletter-subscriptions-app-deployment"
+    labels = {
+      test = "app"
+    }
+  }
+
+  spec {
+    replicas = 2
+
+    selector {
+      match_labels = {
+        test = "app"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          test = "app"
+        }
+      }
+
+      spec {
+        container {
+          image = "933920645082.dkr.ecr.eu-west-1.amazonaws.com/newsletter-subscriptions-app-images:latest"
+          name  = "newsletter-subscriptions-app"
+
+          resources {
+            limits {
+              cpu    = "0.5"
+              memory = "512Mi"
+            }
+            requests {
+              cpu    = "250m"
+              memory = "50Mi"
+            }
+          }
+        }
+      }
+    }
+  }
 }
