@@ -77,6 +77,30 @@ provider "kubernetes" {
   version                = "~> 1.11"
 }
 
+resource "kubernetes_secret" "ecr_registry_secret" {
+  metadata {
+    name = "ecr-registry-secret"
+  }
+  
+  data = {
+    ".dockerconfigjson" = jsonencode({
+      auths = {
+        "933920645082.dkr.ecr.eu-west-1.amazonaws.com" = {
+          "auth" = "${data.aws_ecr_authorization_token.ecr.authorization_token}"
+        }
+      }
+    })
+  }
+
+  type = "kubernetes.io/dockerconfigjson"
+}
+
+data "aws_ecr_authorization_token" "ecr" {}
+
+# output "registry_credentials" {
+#   value = kubernetes_secret.ecr_registry_secret.data[".dockerconfigjson"]
+# }
+
 resource "kubernetes_deployment" "deployment" {
   metadata {
     name = "newsletter-subscriptions-app-deployment"
@@ -102,8 +126,12 @@ resource "kubernetes_deployment" "deployment" {
       }
 
       spec {
+        image_pull_secrets {
+          name = "ecr-registry-secret"
+        }
+        
         container {
-          image = "933920645082.dkr.ecr.eu-west-1.amazonaws.com/newsletter-subscriptions-app-images:latest"
+          image = "933920645082.dkr.ecr.eu-west-1.amazonaws.com/newsletter-subscriptions-app-images:062db587a12b5cd2c104f695cc9690d75adac6e9"
           name  = "newsletter-subscriptions-app"
 
           resources {
