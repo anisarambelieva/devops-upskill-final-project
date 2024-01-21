@@ -1,14 +1,9 @@
 resource "aws_ecs_cluster" "default" {
-  name = "${var.namespace}_ECSCluster_${var.environment}"
-
-  tags = {
-    Name     = "${var.namespace}_ECSCluster_${var.environment}"
-    Scenario = var.scenario
-  }
+  name = "newsletter-subscriptions-app-cluster"
 }
 
 resource "aws_ecs_service" "service" {
-  name                               = "newsletter-subscriptions-app-cluster"
+  name                               = "newsletter-subscriptions-app-ecs-service"
   cluster                            = aws_ecs_cluster.default.id
   task_definition                    = aws_ecs_task_definition.default.arn
   desired_count                      = 2
@@ -44,7 +39,7 @@ resource "aws_ecs_task_definition" "default" {
 
   container_definitions = jsonencode([
     {
-      name         = var.service_name
+      name         = "newsletter-subscriptions-app"
       image        = "933920645082.dkr.ecr.eu-west-1.amazonaws.com/newsletter-subscriptions-app-images:062db587a12b5cd2c104f695cc9690d75adac6e9"
       cpu          = var.cpu_units
       memory       = var.memory
