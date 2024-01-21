@@ -40,8 +40,8 @@ resource "aws_ecs_task_definition" "default" {
   container_definitions = jsonencode([
     {
       name         = "newsletter-subscriptions-app"
-    #   image        = "933920645082.dkr.ecr.eu-west-1.amazonaws.com/newsletter-subscriptions-app-images:062db587a12b5cd2c104f695cc9690d75adac6e9"
-      image = "nginx:1.25.3"
+      image        = "933920645082.dkr.ecr.eu-west-1.amazonaws.com/newsletter-subscriptions-app-images:062db587a12b5cd2c104f695cc9690d75adac6e9"
+    #   image = "nginx:1.25.3"
       cpu          = var.cpu_units
       memory       = var.memory
       essential    = true
