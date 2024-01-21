@@ -104,12 +104,12 @@ data "aws_ec2_managed_prefix_list" "cloudfront" {
   name = "com.amazonaws.global.cloudfront.origin-facing"
 }
 
-resource "aws_security_group_rule" "alb_cloudfront_https_ingress_only" {
+resource "aws_security_group_rule" "alb_cloudfront_http_ingress_only" {
   security_group_id = aws_security_group.alb.id
-  description       = "Allow HTTPS access only from CloudFront CIDR blocks"
-  from_port         = 443
+  description       = "Allow HTTP access only from CloudFront CIDR blocks"
+  from_port         = 80
   protocol          = "tcp"
   prefix_list_ids   = [data.aws_ec2_managed_prefix_list.cloudfront.id]
-  to_port           = 443
+  to_port           = 80
   type              = "ingress"
 }
