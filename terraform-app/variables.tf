@@ -25,7 +25,7 @@ variable "memory" {
 variable "container_port" {
   description = "Port of the container"
   type        = number
-  default     = 3000
+  default     = 5000
 }
 
 variable "az_count" {
