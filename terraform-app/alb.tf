@@ -10,13 +10,8 @@ resource "aws_alb_listener" "alb_default_listener_http" {
   protocol          = "HTTP"
 
   default_action {
-    type = "fixed-response"
-
-    fixed_response {
-      content_type = "text/plain"
-      message_body = "Access denied"
-      status_code  = "403"
-    }
+    type = "forward"
+    target_group_arn = aws_alb_target_group.service_target_group.arn
   }
 }
 
