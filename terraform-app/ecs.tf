@@ -107,9 +107,9 @@ data "aws_ec2_managed_prefix_list" "cloudfront" {
 resource "aws_security_group_rule" "alb_cloudfront_http_ingress_only" {
   security_group_id = aws_security_group.alb.id
   description       = "Allow HTTP access only from CloudFront CIDR blocks"
-  from_port         = 80
+  from_port         = 8080
   protocol          = "tcp"
   prefix_list_ids   = [data.aws_ec2_managed_prefix_list.cloudfront.id]
-  to_port           = 80
+  to_port           = 8080
   type              = "ingress"
 }
