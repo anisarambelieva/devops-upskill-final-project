@@ -27,3 +27,9 @@ variable "container_port" {
   type        = number
   default     = 3000
 }
+
+variable "az_count" {
+  description = "Describes how many availability zones are used"
+  default     = 2
+  type        = number
+}
