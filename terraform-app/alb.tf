@@ -31,7 +31,7 @@ resource "aws_alb_target_group" "service_target_group" {
     path                = "/"
     port                = 8080
     protocol            = "HTTP"
-    timeout             = 100
+    timeout             = 50
   }
 
   depends_on = [aws_alb.alb]
