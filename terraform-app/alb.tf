@@ -5,7 +5,7 @@ resource "aws_alb" "alb" {
 }
 
 resource "aws_alb_target_group" "service_target_group" {
-  name                 = "target_group"
+  name                 = "target-group"
   port                 = var.container_port
   protocol             = "HTTP"
   vpc_id               = aws_vpc.default.id
