@@ -12,6 +12,12 @@ data "aws_iam_policy_document" "task_assume_role_policy" {
       identifiers = ["ecs-tasks.amazonaws.com"]
     }
   }
+
+  statement {
+    actions = ["ecr:*"]
+    resources = ["*"]
+    effect = "Allow"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
