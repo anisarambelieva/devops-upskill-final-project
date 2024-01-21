@@ -19,10 +19,6 @@ resource "aws_route_table" "public" {
   }
 }
 
-resource "aws_internet_gateway" "default" {
-  vpc_id = aws_vpc.default.id
-}
-
 resource "aws_route_table_association" "public" {
   count          = var.az_count
   subnet_id      = aws_subnet.public[count.index].id
