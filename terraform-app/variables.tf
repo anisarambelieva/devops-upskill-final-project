@@ -33,3 +33,9 @@ variable "az_count" {
   default     = 2
   type        = number
 }
+
+variable "vpc_cidr_block" {
+  description = "CIDR block for the VPC network"
+  default     = "10.1.0.0/16"
+  type        = string
+}
