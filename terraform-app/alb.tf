@@ -4,6 +4,22 @@ resource "aws_alb" "alb" {
   subnets         = aws_subnet.public.*.id
 }
 
+resource "aws_alb_listener" "alb_default_listener_http" {
+  load_balancer_arn = aws_alb.alb.arn
+  port              = 8080
+  protocol          = "HTTP"
+
+  default_action {
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Access denied"
+      status_code  = "403"
+    }
+  }
+}
+
 resource "aws_alb_target_group" "service_target_group" {
   name                 = "target-group"
   port                 = var.container_port
