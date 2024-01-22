@@ -7,7 +7,9 @@ resource "aws_alb" "alb" {
 resource "aws_alb_listener" "alb_default_listener_http" {
   load_balancer_arn = aws_alb.alb.arn
   port              = 443
-  protocol          = "HTTP"
+  protocol          = "HTTPS"
+  certificate_arn   = aws_acm_certificate.alb_certificate.arn
+  ssl_policy        = "ELBSecurityPolicy-TLS-1-2-Ext-2018-06"
 
   default_action {
     type = "forward"
