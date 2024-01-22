@@ -123,6 +123,10 @@ resource "aws_ecs_cluster" "ecs-cluster" {
   name = "clusterDev"
 }
 
+data "aws_iam_role" "ecs-task" {
+  name = "ecsTaskExecutionRole"
+}
+
 # TASK DEFINITION
 resource "aws_ecs_task_definition" "task" {
   family                   = "HTTPserver"
