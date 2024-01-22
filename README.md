@@ -1,3 +1,42 @@
-Deployment pipeline
+Thank you for your interest in this repository! 🥹 Here you’ll find my final project for [Telerik’s DevOps Upskill program](https://www.telerikacademy.com/upskill/devops). The goal of the project is to build a complete automated software delivery pipeline.
 
-<img width="1183" alt="Screenshot 2024-01-13 at 13 48 33" src="https://github.com/anisarambelieva/devops-upskill-final-project/assets/36369561/c3263236-de06-46f9-ba94-44d3c9d9f403">
+The app being deployed is a simple one - a web page that collects names and email addresses and stores them in the cloud. Technologies used for the app - python, flask, DynamoDB.
+
+<img width="1505" alt="291097909-b0eae815-5385-455e-a83e-6bb9613c7c83" src="https://github.com/anisarambelieva/devops-upskill-final-project/assets/36369561/c0ea6d46-fa69-4d55-a94d-81d4b792a4f0">
+
+The pipeline starts with this git repository. The main branch is protected and can be updated only with a Pull Request that passes necessary checks:
+
+- Run [linters](https://github.com/wearerequired/lint-action)
+- Run tests
+- Scan for [leaked secrets](https://gitleaks.io)
+- Scan for [security vulnerabilities](https://www.sonarsource.com/products/sonarcloud/)
+- Scan docker image for [vulnerabilities](https://github.com/aquasecurity/trivy-action)
+
+Also, all work that needs to be done is tracked in a Jira board integrated with this GitHub repository.
+
+![Screenshot 2024-01-22 at 14 21 54](https://github.com/anisarambelieva/devops-upskill-final-project/assets/36369561/ea4a0c50-9c91-41db-b27d-e9e781f719da)
+
+There are two rules created. 
+- When a PR which contains the key of the Jira issue is opened, the issue is moved to the "Code Review" column.
+- When the PR is merged, the issue is sent to the "Done" column.
+
+Once the PR is merged to main, a pipeline in CodePipelines gets triggered. AWS’s CodeStar Connections are used to manage the integration between GitHub and CodePipeline. Note that the infrastructure for the deployment pipeline e.g. CodePipeline, CodeBuild, the IAM policies and roles, S3 bucket etc. are provisioned manually. 
+
+The pipeline will execute the following stages:
+
+1. **Source** - where it downloads the code package from GitHub and stores it in the S3 Bucket.
+2. **Deploy** - build the docker image from a Dockerfile and push it to an existing ECR registry
+3. **Terraform Plan** - where CodeBuild will execute the `terraform plan` and copy the `tfplan` into S3
+4. **Review** - waits for someone to review the `tfplan` and approve to proceed with the `apply`
+5. **Apply** - If approved, this stage will fire up CodeBuild to do the `terraform apply` on the preexisting `tfplan` file.
+
+Also, if a CodeBuild project fails, an email is sent to the subsribed stakeholders.
+
+![Screenshot 2024-01-22 at 14 18 07](https://github.com/anisarambelieva/devops-upskill-final-project/assets/36369561/1fb6e6d8-a253-40b2-9395-7d390d350ba9)
+![Screenshot 2024-01-22 at 14 30 14](https://github.com/anisarambelieva/devops-upskill-final-project/assets/36369561/829c9867-36cc-4355-83a3-f15a2f3d2885)
+
+
+⭐️ Future improvements wishlist
+- Integrate the "Manual Approval" stage of the CodePipeline with MS Teams channel notifications. Note: Currently this is not possible as admin rights over the organization are needed.
+- Migrate from ECS to EKS for a more granular control over the K8s cluster
+- Use git commit SHA to tag the image in the ECR registry
