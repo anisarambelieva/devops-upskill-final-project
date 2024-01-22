@@ -39,3 +39,8 @@ variable "vpc_cidr_block" {
   default     = "10.1.0.0/16"
   type        = string
 }
+
+variable "domain_name" {
+  default     = "telerik-newsletter-subscriptions.com"
+  type        = string
+}
