@@ -18,7 +18,7 @@ resource "aws_route53_record" "service" {
 resource "aws_route53_record" "service_record" {
   name    = "${var.domain_name}"
   type    = "A"
-  zone_id = aws_route53_zone.environment.id
+  zone_id = aws_route53_zone.service.id
 
   alias {
     name                   = aws_cloudfront_distribution.default.domain_name

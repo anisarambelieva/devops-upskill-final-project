@@ -24,11 +24,6 @@ resource "aws_cloudfront_distribution" "default" {
     domain_name = aws_alb.alb.dns_name
     origin_id   = aws_alb.alb.name
 
-    custom_header {
-      name  = "X-Custom-Header"
-      value = var.custom_origin_host_header
-    }
-
     custom_origin_config {
       origin_read_timeout      = 60
       origin_keepalive_timeout = 60
