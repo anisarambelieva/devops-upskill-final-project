@@ -135,7 +135,7 @@ resource "aws_ecs_task_definition" "task" {
   
   container_definitions = jsonencode([
     {
-      name   = "app"
+      name   = "app-container"
       image  = "933920645082.dkr.ecr.eu-west-1.amazonaws.com/newsletter-subscriptions-app-images:latest" #URI
       cpu    = 256
       memory = 512
