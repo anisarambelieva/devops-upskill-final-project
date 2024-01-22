@@ -20,16 +20,16 @@ resource "aws_alb_target_group" "service_target_group" {
   port                 = var.container_port
   protocol             = "HTTP"
   vpc_id               = aws_vpc.default.id
-  deregistration_delay = 5
+  deregistration_delay = 300
   target_type          = "ip"
 
   health_check {
     healthy_threshold   = 2
     unhealthy_threshold = 2
     interval            = 60
-    matcher             = "200-499"
+    matcher             = "200"
     path                = "/"
-    port                = 8080
+    port                = "traffic-port"
     protocol            = "HTTP"
     timeout             = 30
   }
