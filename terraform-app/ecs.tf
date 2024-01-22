@@ -123,10 +123,6 @@ resource "aws_ecs_cluster" "ecs-cluster" {
   name = "clusterDev"
 }
 
-data "aws_iam_role" "ecs-task" {
-  name = "ecsTaskExecutionRole"
-}
-
 # TASK DEFINITION
 resource "aws_ecs_task_definition" "task" {
   family                   = "HTTPserver"
@@ -134,12 +130,13 @@ resource "aws_ecs_task_definition" "task" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = 256
   memory                   = 512
-  execution_role_arn       = "${data.aws_iam_role.ecs-task.arn}"
-
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn            = aws_iam_role.ecs_task_iam_role.arn
+  
   container_definitions = jsonencode([
     {
-      name   = "golang-container"
-      image  = "${var.uri_repo}:latest" #URI
+      name   = "app"
+      image  = "933920645082.dkr.ecr.eu-west-1.amazonaws.com/newsletter-subscriptions-app-images:latest" #URI
       cpu    = 256
       memory = 512
       portMappings = [
@@ -153,7 +150,7 @@ resource "aws_ecs_task_definition" "task" {
 
 # ECS SERVICE
 resource "aws_ecs_service" "svc" {
-  name            = "golang-Service"
+  name            = "app-service"
   cluster         = "${aws_ecs_cluster.ecs-cluster.id}"
   task_definition = "${aws_ecs_task_definition.task.id}"
   desired_count   = 2
@@ -168,7 +165,7 @@ resource "aws_ecs_service" "svc" {
 
   load_balancer {
     target_group_arn = "${aws_lb_target_group.tg-group.arn}"
-    container_name   = "golang-container"
+    container_name   = "app-container"
     container_port   = "5000"
   }
 }
