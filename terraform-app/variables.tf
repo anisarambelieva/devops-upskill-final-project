@@ -55,8 +55,8 @@ variable "cidr" {
 variable "azs" {
   type = list(string)
   default = [
-    "ew-west-1a",
-    "ew-west-1b"
+    "eu-west-1a",
+    "eu-west-1b"
   ]
 }
 
