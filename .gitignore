@@ -2,3 +2,5 @@
 __pycache__
 terraform-initial-setup/.terraform
 terraform-initial-setup/.terraform.lock.hcl
+terraform-app/.terraform.lock.hcl
+terraform-app/.terraform

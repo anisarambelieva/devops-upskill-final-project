@@ -66,4 +66,21 @@ resource "aws_codepipeline" "codepipeline" {
         }
     }
   }
+
+  stage {
+    name = "Deploy"
+
+    action {
+        name = "Deploy"
+        category = "Build"
+        provider = "CodeBuild"
+        version = "1"
+        owner = "AWS"
+        input_artifacts  = ["SourceOutput"]
+
+        configuration = {
+            ProjectName = aws_codebuild_project.codebuild_project_deploy_stage.name
+      }
+    }
+  }
 }

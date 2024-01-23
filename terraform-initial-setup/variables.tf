@@ -40,6 +40,12 @@ variable "codebuild_apply_project_name" {
   default = "terraform-apply-codebuild-project" 
 }
 
+variable "codebuild_deploy_project_name" {
+  type = string
+  description = "CodeBuild project name for the deploy stage"
+  default = "deploy-codebuild-project" 
+}
+
 variable "codebuild_policy_name" {
   type = string
   description = "IAM policy name for the CodeBuild projects"
@@ -79,5 +85,11 @@ variable "git_repo" {
 variable "git_branch" {
   type        = string
   description = "Github branch name"
-  default     = "main"
+  default     = "add-eks-cluster"
+}
+
+variable "ecr_repository_name" {
+  type        = string
+  description = "ECR repository name"
+  default     = "newsletter-subscriptions-app-images"
 }
