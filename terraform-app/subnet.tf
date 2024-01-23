@@ -1,21 +1,21 @@
-resource "aws_route_table" "pub-table" {
+resource "aws_route_table" "route-table" {
   vpc_id = "${aws_vpc.ecs-vpc.id}"
 }
 
-resource "aws_route" "pub-route" {
-  route_table_id         = "${aws_route_table.pub-table.id}"
+resource "aws_route" "route" {
+  route_table_id         = "${aws_route_table.route-table.id}"
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = "${aws_internet_gateway.i-gateway.id}"
+  gateway_id             = "${aws_internet_gateway.internet-gateway.id}"
 }
 
-resource "aws_route_table_association" "as-pub" {
+resource "aws_route_table_association" "table-association" {
   count          = length(var.azs)
-  route_table_id = "${aws_route_table.pub-table.id}"
-  subnet_id      = "${aws_subnet.pub-subnets[count.index].id}"
+  route_table_id = "${aws_route_table.route-table.id}"
+  subnet_id      = "${aws_subnet.subnets[count.index].id}"
 }
 
-resource "aws_security_group" "sg1" {
-  name        = "golang-server"
+resource "aws_security_group" "security-group-1" {
+  name        = "security-group-server"
   description = "Port 5000"
   vpc_id      = aws_vpc.ecs-vpc.id
 
@@ -29,7 +29,7 @@ resource "aws_security_group" "sg1" {
   }
 
   egress {
-    description = "Allow all ip and ports outboun"
+    description = "Allow all ip and ports outbound"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -37,8 +37,8 @@ resource "aws_security_group" "sg1" {
   }
 }
 
-resource "aws_security_group" "sg2" {
-  name        = "golang-server-alb"
+resource "aws_security_group" "security-group-2" {
+  name        = "security-group-alb"
   description = "Port 80"
   vpc_id      = aws_vpc.ecs-vpc.id
 
@@ -52,7 +52,7 @@ resource "aws_security_group" "sg2" {
   }
 
   egress {
-    description = "Allow all ip and ports outboun"
+    description = "Allow all ip and ports outbound"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"

@@ -1,9 +1,7 @@
-# ECS CLUSTER
 resource "aws_ecs_cluster" "ecs-cluster" {
-  name = "clusterDev"
+  name = "cluster"
 }
 
-# TASK DEFINITION
 resource "aws_ecs_task_definition" "task" {
   family                   = "HTTPserver"
   network_mode             = "awsvpc"
@@ -16,7 +14,7 @@ resource "aws_ecs_task_definition" "task" {
   container_definitions = jsonencode([
     {
       name   = "app-container"
-      image  = "933920645082.dkr.ecr.eu-west-1.amazonaws.com/newsletter-subscriptions-app-images:latest" #URI
+      image  = "933920645082.dkr.ecr.eu-west-1.amazonaws.com/newsletter-subscriptions-app-images:latest"
       cpu    = 256
       memory = 512
       portMappings = [
@@ -28,8 +26,7 @@ resource "aws_ecs_task_definition" "task" {
   ])
 }
 
-# ECS SERVICE
-resource "aws_ecs_service" "svc" {
+resource "aws_ecs_service" "service" {
   name            = "app-service"
   cluster         = "${aws_ecs_cluster.ecs-cluster.id}"
   task_definition = "${aws_ecs_task_definition.task.id}"
@@ -38,13 +35,13 @@ resource "aws_ecs_service" "svc" {
 
 
   network_configuration {
-    subnets          = ["${aws_subnet.pub-subnets[0].id}", "${aws_subnet.pub-subnets[1].id}"]
-    security_groups  = ["${aws_security_group.sg1.id}"]
+    subnets          = ["${aws_subnet.subnets[0].id}", "${aws_subnet.subnets[1].id}"]
+    security_groups  = ["${aws_security_group.security-group-1.id}"]
     assign_public_ip = true
   }
 
   load_balancer {
-    target_group_arn = "${aws_lb_target_group.tg-group.arn}"
+    target_group_arn = "${aws_lb_target_group.target-group.arn}"
     container_name   = "app-container"
     container_port   = "5000"
   }
