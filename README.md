@@ -35,6 +35,9 @@ Also, if a CodeBuild project fails, an email is sent to the subsribed stakeholde
 ![Screenshot 2024-01-22 at 14 18 07](https://github.com/anisarambelieva/devops-upskill-final-project/assets/36369561/1fb6e6d8-a253-40b2-9395-7d390d350ba9)
 ![Screenshot 2024-01-22 at 14 30 14](https://github.com/anisarambelieva/devops-upskill-final-project/assets/36369561/829c9867-36cc-4355-83a3-f15a2f3d2885)
 
+The app is deployed to an ECS (on Fargate) cluster with Internet Gateway and Application Load Balancer.
+
+<img width="1185" alt="Screenshot 2024-01-23 at 9 18 07" src="https://github.com/anisarambelieva/devops-upskill-final-project/assets/36369561/d203fd2e-ac56-4f9f-859d-2c72f410b867">
 
 ⭐️ Future improvements wishlist
 - Integrate the "Manual Approval" stage of the CodePipeline with MS Teams channel notifications. Note: Currently this is not possible as admin rights over the organization are needed.
