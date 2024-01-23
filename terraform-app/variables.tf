@@ -28,25 +28,11 @@ variable "container_port" {
   default     = 5000
 }
 
-variable "az_count" {
-  description = "Describes how many availability zones are used"
-  default     = 2
-  type        = number
-}
-
-variable "vpc_cidr_block" {
-  description = "CIDR block for the VPC network"
-  default     = "10.1.0.0/16"
-  type        = string
-}
-
 variable "domain_name" {
   default     = "telerik-newsletter-subscriptions.com"
   type        = string
 }
 
-
-# NEW SETUP
 variable "cidr" {
   type    = string
   default = "145.0.0.0/16"
@@ -66,5 +52,4 @@ variable "subnets-ip" {
     "145.0.1.0/24",
     "145.0.2.0/24"
   ]
-
 }

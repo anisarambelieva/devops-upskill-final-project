@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "ecs-cluster" {
-  name = "cluster"
+  name = var.cluster_name
 }
 
 resource "aws_ecs_task_definition" "task" {
@@ -15,11 +15,11 @@ resource "aws_ecs_task_definition" "task" {
     {
       name   = "app-container"
       image  = "933920645082.dkr.ecr.eu-west-1.amazonaws.com/newsletter-subscriptions-app-images:latest"
-      cpu    = 256
-      memory = 512
+      cpu    = var.cpu_units
+      memory = var.memory
       portMappings = [
         {
-          containerPort = 5000
+          containerPort = var.container_port
         }
       ]
     }
@@ -30,7 +30,7 @@ resource "aws_ecs_service" "service" {
   name            = "app-service"
   cluster         = "${aws_ecs_cluster.ecs-cluster.id}"
   task_definition = "${aws_ecs_task_definition.task.id}"
-  desired_count   = 2
+  desired_count   = length(var.azs)
   launch_type     = "FARGATE"
 
 
@@ -43,6 +43,6 @@ resource "aws_ecs_service" "service" {
   load_balancer {
     target_group_arn = "${aws_lb_target_group.target-group.arn}"
     container_name   = "app-container"
-    container_port   = "5000"
+    container_port   = var.container_port
   }
 }

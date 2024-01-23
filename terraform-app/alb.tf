@@ -9,7 +9,7 @@ resource "aws_lb" "app-lb" {
 
 resource "aws_lb_target_group" "target-group" {
   name        = "target-group"
-  port        = "5000"
+  port        = var.container_port
   protocol    = "HTTP"
   vpc_id      = "${aws_vpc.ecs-vpc.id}"
   target_type = "ip"
