@@ -60,24 +60,3 @@ resource "aws_codebuild_project" "codebuild_project_deploy_stage" {
      buildspec = file("buildspec/buildspec-docker.yml")
  }
 }
-
-resource "aws_codebuild_project" "codebuild_project_destroy_stage" {
-  name          = var.codebuild_destroy_project_name
-  description   = "Destroy Stage"
-  service_role  = aws_iam_role.codebuild-role.arn
-
-  artifacts {
-    type = "CODEPIPELINE"
-  }
-
-  environment {
-    compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       = "hashicorp/terraform:latest"
-    type                        = "LINUX_CONTAINER"
- }
-
-  source {
-     type   = "CODEPIPELINE"
-     buildspec = file("buildspec/buildspec-destroy.yml")
- }
-}
