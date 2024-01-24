@@ -51,6 +51,22 @@ resource "aws_codepipeline" "codepipeline" {
   }
 
   stage {
+    name = "Approve"
+
+    action {
+      name = "Approval"
+      category = "Approval"
+      owner = "AWS"
+      provider = "Manual"
+      version = "1"
+
+      configuration = {
+        NotificationArn = "arn:aws:sns:eu-west-1:933920645082:teams-sns"
+      }
+    }
+  }
+
+  stage {
     name = "Apply" 
 
     action  {
