@@ -132,6 +132,12 @@ data "aws_iam_policy_document" "codepipeline-policy-document" {
         resources = [aws_codestarconnections_connection.github-connection.arn]
         effect = "Allow"
     }
+
+    statement{
+        actions = ["sns:Publish"]
+        resources = ["arn:aws:sns:eu-west-1:933920645082:teams-sns"]
+        effect = "Allow"
+    }
 }
 
 resource "aws_iam_policy" "codepipeline-policy" {
