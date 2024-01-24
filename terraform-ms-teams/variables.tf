@@ -6,7 +6,6 @@ variable "additional_tags" {
 variable "teams_webhook" {
   type        = string
   description = "teams webhook"
-  default = " https://telerikacademy.webhook.office.com/webhookb2/6418911f-f4e8-4ba3-8871-104978e0ecda@b1720f58-a86a-437a-b829-7a6e544e48ac/IncomingWebhook/054d8dbf67ec4259a6dadfa0851dd5a1/812ca9b3-7cfc-4d41-9792-6b14f88cbee4"
 }
 
 variable "teams_timeout" {
