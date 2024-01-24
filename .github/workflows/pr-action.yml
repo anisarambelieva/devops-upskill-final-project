@@ -58,10 +58,10 @@ jobs:
         with:
           fetch-depth: 1
       
-      - name: Run gitleaks
-        uses: gitleaks/gitleaks-action@v2
+      - name: GitGuardian scan
+        uses: GitGuardian/ggshield-action@v1.23.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
 
   sonarcloud:
     runs-on: ubuntu-latest
