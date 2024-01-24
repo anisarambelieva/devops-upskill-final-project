@@ -7,7 +7,6 @@ dynamodb = boto3.resource('dynamodb', region_name="eu-west-1")
 
 table = dynamodb.Table("newsletter-subscriptions")
 
-# THIS IS A TEST CHANGE
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
