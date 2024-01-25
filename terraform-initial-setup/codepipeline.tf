@@ -68,6 +68,18 @@ resource "aws_codepipeline" "codepipeline" {
   }
 
   stage {
+    name = "Approve" 
+
+    action  {
+        name = "Approval"
+        category = "Approval"
+        provider = "Manual"
+        version = "1"
+        owner = "AWS"
+    }
+  }
+
+  stage {
     name = "Apply" 
 
     action  {
