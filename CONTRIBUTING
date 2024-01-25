@@ -1,0 +1,40 @@
+# Contributing
+
+Welcome! Thank you for being interested in this repository. 
+
+**Before you get started, please take a moment to read the following guidelines.**
+
+## Getting Started
+
+- Make sure you have a GitHub account.
+- Fork the repository on GitHub.
+
+## Issues
+
+- If you encounter any issues or have feature requests, please [submit an issue](https://github.com/anisarambelieva/devops-upskill-final-project/issues).
+- Clearly describe the problem, including steps to reproduce if it's a bug.
+- Make sure your environment is up to date and the issue still exists.
+
+## Pull Requests
+
+- Create a new branch for your feature or bug fix.
+- Ensure your code passes all existing tests and style checks.
+- If needed, update the documentation to reflect your changes.
+- Submit a pull request to the main repository.
+  - Provide a clear PR name and a good description for your changes.
+
+## Code of Conduct
+
+We are here to learn and support each other. When suggesting changes or sharing your viewpoint, be mindful that not everyone has your knowledge and expertise, so be patient with each other. We ask you to
+
+- Use **welcoming** and inclusive language
+- Be **respectful** of differing viewpoints and opinions
+- Gracefully accept constructive criticism
+
+## License
+
+By contributing, you agree that your contributions will be licensed under the MIT license.
+
+Thank you for contributing!
+
+Happy Coding!
