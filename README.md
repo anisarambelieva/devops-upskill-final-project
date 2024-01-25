@@ -25,7 +25,7 @@ Once the PR is merged to main, a pipeline in CodePipelines gets triggered. AWS�
 The pipeline will execute the following stages:
 
 1. **Source** - where it downloads the code package from GitHub and stores it in the S3 Bucket.
-2. **Deploy** - build the docker image from a Dockerfile and push it to an existing ECR registry
+2. **Build Docker image** - build the docker image from a Dockerfile and push it to an existing ECR registry
 3. **Terraform Plan** - where CodeBuild will execute the `terraform plan` and copy the `tfplan` into S3
 4. **Review** - waits for someone to review the `tfplan` and approve to proceed with the `apply`
 5. **Apply** - If approved, this stage will fire up CodeBuild to do the `terraform apply` on the preexisting `tfplan` file.
