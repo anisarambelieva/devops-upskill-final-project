@@ -29,45 +29,45 @@ variable "terraform_state_object" {
 }
 
 variable "codebuild_plan_project_name" {
-  type = string
+  type        = string
   description = "CodeBuild project name for the Terraform plan stage"
-  default = "terraform-plan-codebuild-project" 
+  default     = "terraform-plan-codebuild-project"
 }
 
 variable "codebuild_apply_project_name" {
-  type = string
+  type        = string
   description = "CodeBuild project name for the Terraform apply stage"
-  default = "terraform-apply-codebuild-project" 
+  default     = "terraform-apply-codebuild-project"
 }
 
 variable "codebuild_build_project_name" {
-  type = string
+  type        = string
   description = "CodeBuild project name for the Docker build stage"
-  default = "build-codebuild-project" 
+  default     = "build-codebuild-project"
 }
 
 variable "codebuild_policy_name" {
-  type = string
+  type        = string
   description = "IAM policy name for the CodeBuild projects"
-  default = "newsletter-subscriptions-app-codebuild-policy" 
+  default     = "newsletter-subscriptions-app-codebuild-policy"
 }
 
 variable "codebuild_role_name" {
-  type = string
+  type        = string
   description = "IAM role name for the CodeBuild projects"
-  default = "newsletter-subscriptions-app-codebuild-role" 
+  default     = "newsletter-subscriptions-app-codebuild-role"
 }
 
 variable "codepipeline_policy_name" {
-  type = string
+  type        = string
   description = "IAM policy name for the CodePipeline pipeline"
-  default = "newsletter-subscriptions-app-codepipeline-policy" 
+  default     = "newsletter-subscriptions-app-codepipeline-policy"
 }
 
 variable "codepipeline_role_name" {
-  type = string
+  type        = string
   description = "IAM role name for the CodePipeline pipeline"
-  default = "newsletter-subscriptions-app-codepipeline-role" 
+  default     = "newsletter-subscriptions-app-codepipeline-role"
 }
 
 variable "git_owner" {
@@ -79,7 +79,7 @@ variable "git_owner" {
 variable "git_repo" {
   type        = string
   description = "Github repository name"
-  default = "devops-upskill-final-project"
+  default     = "devops-upskill-final-project"
 }
 
 variable "git_branch" {

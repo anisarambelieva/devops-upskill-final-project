@@ -25,8 +25,8 @@ resource "aws_iam_role" "ecs_task_iam_role" {
 }
 
 resource "aws_iam_role_policy" "ecs_task_dynamodb_policy" {
-  name   = "ecs_task_dynamodb_policy"
-  role   = aws_iam_role.ecs_task_iam_role.name
+  name = "ecs_task_dynamodb_policy"
+  role = aws_iam_role.ecs_task_iam_role.name
 
   policy = jsonencode({
     Version = "2012-10-17",
