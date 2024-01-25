@@ -8,7 +8,7 @@ The pipeline starts with this git repository. The main branch is protected and c
 
 - Run [linters](https://github.com/wearerequired/lint-action)
 - Run tests
-- Scan for [leaked secrets](https://gitleaks.io)
+- Scan for [leaked secrets](https://github.com/GitGuardian/ggshield-action)
 - Scan for [security vulnerabilities](https://www.sonarsource.com/products/sonarcloud/)
 - Scan docker image for [vulnerabilities](https://github.com/aquasecurity/trivy-action)
 
