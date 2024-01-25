@@ -3,7 +3,6 @@ name: PR pipeline
 on:
   pull_request:
     types: [opened, reopened]
-    paths: ['**.py', '**.tf', 'Dockerfile']
 
 jobs:
   run-linters:
