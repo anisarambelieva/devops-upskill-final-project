@@ -7,10 +7,13 @@ The app being deployed is a simple one - a web page that collects names and emai
 The pipeline starts with this git repository. The main branch is protected and can be updated only with a Pull Request that passes necessary checks:
 
 - Run [linters](https://github.com/wearerequired/lint-action)
+- Run `terraform fmt` [check](https://github.com/marketplace/actions/terraform-fmt-check)
 - Run tests
 - Scan for [leaked secrets](https://github.com/GitGuardian/ggshield-action)
 - Scan for [security vulnerabilities](https://www.sonarsource.com/products/sonarcloud/)
 - Scan docker image for [vulnerabilities](https://github.com/aquasecurity/trivy-action)
+
+<img width="917" alt="Screenshot 2024-01-25 at 16 50 10" src="https://github.com/anisarambelieva/devops-upskill-final-project/assets/36369561/9dc32a90-9417-466a-9154-3a81a46afc0a">
 
 Also, all work that needs to be done is tracked in a Jira board integrated with this GitHub repository.
 
