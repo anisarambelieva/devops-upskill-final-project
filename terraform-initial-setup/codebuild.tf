@@ -40,9 +40,9 @@ resource "aws_codebuild_project" "codebuild_project_apply_stage" {
  }
 }
 
-resource "aws_codebuild_project" "codebuild_project_deploy_stage" {
-  name          = var.codebuild_deploy_project_name
-  description   = "Deploy Stage"
+resource "aws_codebuild_project" "codebuild_project_build_stage" {
+  name          = var.codebuild_build_project_name
+  description   = "Docker build Stage"
   service_role  = aws_iam_role.codebuild-role.arn
 
   artifacts {

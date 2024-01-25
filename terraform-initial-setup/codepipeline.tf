@@ -33,6 +33,23 @@ resource "aws_codepipeline" "codepipeline" {
   }
 
   stage {
+    name = "Docker build"
+
+    action {
+        name = "Build"
+        category = "Build"
+        provider = "CodeBuild"
+        version = "1"
+        owner = "AWS"
+        input_artifacts  = ["SourceOutput"]
+
+        configuration = {
+            ProjectName = aws_codebuild_project.codebuild_project_build_stage.name
+      }
+    }
+  }
+
+  stage {
     name = "Plan"
 
     action {
@@ -64,23 +81,6 @@ resource "aws_codepipeline" "codepipeline" {
         configuration = {
             ProjectName = aws_codebuild_project.codebuild_project_apply_stage.name
         }
-    }
-  }
-
-  stage {
-    name = "Deploy"
-
-    action {
-        name = "Deploy"
-        category = "Build"
-        provider = "CodeBuild"
-        version = "1"
-        owner = "AWS"
-        input_artifacts  = ["SourceOutput"]
-
-        configuration = {
-            ProjectName = aws_codebuild_project.codebuild_project_deploy_stage.name
-      }
     }
   }
 }

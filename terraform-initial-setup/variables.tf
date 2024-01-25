@@ -40,10 +40,10 @@ variable "codebuild_apply_project_name" {
   default = "terraform-apply-codebuild-project" 
 }
 
-variable "codebuild_deploy_project_name" {
+variable "codebuild_build_project_name" {
   type = string
-  description = "CodeBuild project name for the deploy stage"
-  default = "deploy-codebuild-project" 
+  description = "CodeBuild project name for the Docker build stage"
+  default = "build-codebuild-project" 
 }
 
 variable "codebuild_policy_name" {
