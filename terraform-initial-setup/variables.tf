@@ -85,7 +85,7 @@ variable "git_repo" {
 variable "git_branch" {
   type        = string
   description = "Github branch name"
-  default     = "add-eks-cluster"
+  default     = "main"
 }
 
 variable "ecr_repository_name" {
