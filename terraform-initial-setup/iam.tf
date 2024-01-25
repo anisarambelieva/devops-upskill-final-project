@@ -111,7 +111,7 @@ data "aws_iam_policy_document" "codepipeline-policy-document" {
         resources = [
           "arn:aws:codebuild:${var.region}:${var.account_id}:project/${var.codebuild_plan_project_name}",
           "arn:aws:codebuild:${var.region}:${var.account_id}:project/${var.codebuild_apply_project_name}",
-          "arn:aws:codebuild:${var.region}:${var.account_id}:project/${var.codebuild_deploy_project_name}",
+          "arn:aws:codebuild:${var.region}:${var.account_id}:project/${var.codebuild_build_project_name}",
           ]
         effect = "Allow"
     }
