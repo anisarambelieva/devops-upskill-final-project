@@ -33,7 +33,7 @@ resource "aws_codepipeline" "codepipeline" {
   }
 
   stage {
-    name = "Docker build"
+    name = "Build"
 
     action {
         name = "Build"
