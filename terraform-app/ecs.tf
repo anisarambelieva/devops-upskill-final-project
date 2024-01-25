@@ -10,7 +10,7 @@ resource "aws_ecs_task_definition" "task" {
   memory                   = 512
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   task_role_arn            = aws_iam_role.ecs_task_iam_role.arn
-  
+
   container_definitions = jsonencode([
     {
       name   = "app-container"
@@ -28,8 +28,8 @@ resource "aws_ecs_task_definition" "task" {
 
 resource "aws_ecs_service" "service" {
   name            = "app-service"
-  cluster         = "${aws_ecs_cluster.ecs-cluster.id}"
-  task_definition = "${aws_ecs_task_definition.task.id}"
+  cluster         = aws_ecs_cluster.ecs-cluster.id
+  task_definition = aws_ecs_task_definition.task.id
   desired_count   = length(var.azs)
   launch_type     = "FARGATE"
 
@@ -41,7 +41,7 @@ resource "aws_ecs_service" "service" {
   }
 
   load_balancer {
-    target_group_arn = "${aws_lb_target_group.target-group.arn}"
+    target_group_arn = aws_lb_target_group.target-group.arn
     container_name   = "app-container"
     container_port   = var.container_port
   }

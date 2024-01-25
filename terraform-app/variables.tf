@@ -29,8 +29,8 @@ variable "container_port" {
 }
 
 variable "domain_name" {
-  default     = "telerik-newsletter-subscriptions.com"
-  type        = string
+  default = "telerik-newsletter-subscriptions.com"
+  type    = string
 }
 
 variable "cidr" {

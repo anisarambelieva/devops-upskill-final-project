@@ -28,6 +28,23 @@ jobs:
           black: true
           flake8: true
 
+  terraform-fmt-check:
+    name: Check Terraform files format
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        path: [terraform-app, terraform-initial-setup]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Terraform fmt check
+        uses: dflook/terraform-fmt-check@v1
+        with:
+          path: ${{ matrix.path }}
+
   run-tests:
     name: Run tests
     runs-on: ubuntu-latest

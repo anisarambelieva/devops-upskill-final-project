@@ -1,17 +1,17 @@
 resource "aws_route_table" "route-table" {
-  vpc_id = "${aws_vpc.ecs-vpc.id}"
+  vpc_id = aws_vpc.ecs-vpc.id
 }
 
 resource "aws_route" "route" {
-  route_table_id         = "${aws_route_table.route-table.id}"
+  route_table_id         = aws_route_table.route-table.id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = "${aws_internet_gateway.internet-gateway.id}"
+  gateway_id             = aws_internet_gateway.internet-gateway.id
 }
 
 resource "aws_route_table_association" "table-association" {
   count          = length(var.azs)
-  route_table_id = "${aws_route_table.route-table.id}"
-  subnet_id      = "${aws_subnet.subnets[count.index].id}"
+  route_table_id = aws_route_table.route-table.id
+  subnet_id      = aws_subnet.subnets[count.index].id
 }
 
 resource "aws_security_group" "security-group-1" {

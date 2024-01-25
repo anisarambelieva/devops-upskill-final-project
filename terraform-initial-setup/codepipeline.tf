@@ -24,10 +24,10 @@ resource "aws_codepipeline" "codepipeline" {
       output_artifacts = ["SourceOutput"]
 
       configuration = {
-        ConnectionArn        = aws_codestarconnections_connection.github-connection.arn
-        FullRepositoryId     = "${var.git_owner}/${var.git_repo}"
-        BranchName           = var.git_branch
-        DetectChanges        = false # CodePipeline does not start your pipeline on new commits
+        ConnectionArn    = aws_codestarconnections_connection.github-connection.arn
+        FullRepositoryId = "${var.git_owner}/${var.git_repo}"
+        BranchName       = var.git_branch
+        DetectChanges    = false # CodePipeline does not start your pipeline on new commits
       }
     }
   }
@@ -36,15 +36,15 @@ resource "aws_codepipeline" "codepipeline" {
     name = "Build"
 
     action {
-        name = "Build"
-        category = "Build"
-        provider = "CodeBuild"
-        version = "1"
-        owner = "AWS"
-        input_artifacts  = ["SourceOutput"]
+      name            = "Build"
+      category        = "Build"
+      provider        = "CodeBuild"
+      version         = "1"
+      owner           = "AWS"
+      input_artifacts = ["SourceOutput"]
 
-        configuration = {
-            ProjectName = aws_codebuild_project.codebuild_project_build_stage.name
+      configuration = {
+        ProjectName = aws_codebuild_project.codebuild_project_build_stage.name
       }
     }
   }
@@ -68,31 +68,31 @@ resource "aws_codepipeline" "codepipeline" {
   }
 
   stage {
-    name = "Approve" 
+    name = "Approve"
 
-    action  {
-        name = "Approval"
-        category = "Approval"
-        provider = "Manual"
-        version = "1"
-        owner = "AWS"
+    action {
+      name     = "Approval"
+      category = "Approval"
+      provider = "Manual"
+      version  = "1"
+      owner    = "AWS"
     }
   }
 
   stage {
-    name = "Apply" 
+    name = "Apply"
 
-    action  {
-        name = "Apply"
-        category = "Build"
-        provider = "CodeBuild"
-        version = "1"
-        owner = "AWS"
-        input_artifacts = ["PlanOutput"]
+    action {
+      name            = "Apply"
+      category        = "Build"
+      provider        = "CodeBuild"
+      version         = "1"
+      owner           = "AWS"
+      input_artifacts = ["PlanOutput"]
 
-        configuration = {
-            ProjectName = aws_codebuild_project.codebuild_project_apply_stage.name
-        }
+      configuration = {
+        ProjectName = aws_codebuild_project.codebuild_project_apply_stage.name
+      }
     }
   }
 }
