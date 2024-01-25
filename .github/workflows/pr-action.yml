@@ -68,6 +68,7 @@ jobs:
         run: pytest app_test.py
 
   scan-secrets:
+    name: Scan secrets
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -81,6 +82,7 @@ jobs:
           GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
 
   sonarcloud:
+    name: SonarCloud Scan
     runs-on: ubuntu-latest
     steps:
     - name: Check out Git repository
@@ -112,6 +114,7 @@ jobs:
   #         args: --severity-threshold=critical
 
   docker-image:
+    name: Scan Docker image
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
