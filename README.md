@@ -1,4 +1,4 @@
-Thank you for your interest in this repository! 🥹 Here you’ll find my final project for [Telerik’s DevOps Upskill program](https://www.telerikacademy.com/upskill/devops). The goal of the project is to build a complete automated software delivery pipeline.
+Hello! Thank you for your interest in this repository! 🥹 Here you’ll find my final project for [Telerik’s DevOps Upskill program](https://www.telerikacademy.com/upskill/devops). The goal is to build a complete automated software delivery pipeline.
 
 The app being deployed is a simple one - a web page that collects names and email addresses and stores them in the cloud. Technologies used for the app - python, flask, DynamoDB.
 
@@ -7,7 +7,7 @@ The app being deployed is a simple one - a web page that collects names and emai
 The pipeline starts with this git repository. The main branch is protected and can be updated only with a Pull Request that passes necessary checks:
 
 - Run [linters](https://github.com/wearerequired/lint-action)
-- Run `terraform fmt` [check](https://github.com/marketplace/actions/terraform-fmt-check)
+- Run terraform fmt [check](https://github.com/marketplace/actions/terraform-fmt-check)
 - Run tests
 - Scan for [leaked secrets](https://github.com/GitGuardian/ggshield-action)
 - Scan for [security vulnerabilities](https://www.sonarsource.com/products/sonarcloud/)
@@ -23,14 +23,22 @@ There are two rules created.
 - When a PR which contains the key of the Jira issue is opened, the issue is moved to the "Code Review" column.
 - When the PR is merged, the issue is sent to the "Done" column.
 
-Once the PR is merged to main, a pipeline in CodePipelines gets triggered. AWS’s CodeStar Connections are used to manage the integration between GitHub and CodePipeline. Note that the infrastructure for the deployment pipeline e.g. CodePipeline, CodeBuild, the IAM policies and roles, S3 bucket etc. are provisioned manually. 
+Once the PR is merged to main, a pipeline in CodePipelines gets triggered. [AWS’s CodeStar Connections](https://docs.aws.amazon.com/codestar-connections/latest/APIReference/Welcome.html) are used to manage the integration between GitHub and CodePipeline. Note that the infrastructure for the deployment pipeline e.g. CodePipeline, CodeBuild, the IAM policies and roles, ECR, S3 bucket etc. are provisioned manually. 
 
-The pipeline will execute the following stages:
+To provision the required infrastructure follow these steps.
+- Make sure you have access to the AWS account.
+- Assume the role using which you'll provision the resources.
+- Make sure you have terraform installed locally. Find intallation instructions [here](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli).
+- Run `cd terraform-initial-setup` to select the right folder.
+- Run `terrafom plan` and `terraform apply` to provision the resources.
+- Go to the AWS console and check if the resources are created.
+
+A CodePipeline is one of these resources we just created. The pipeline executes the following stages:
 
 1. **Source** - where it downloads the code package from GitHub and stores it in the S3 Bucket.
 2. **Build Docker image** - build the docker image from a Dockerfile and push it to an existing ECR registry
 3. **Terraform Plan** - where CodeBuild will execute the `terraform plan` and copy the `tfplan` into S3
-4. **Review** - waits for someone to review the `tfplan` and approve to proceed with the `apply`
+4. **Approve** - waits for someone to review the `tfplan` and approve to proceed with the `apply`
 5. **Apply** - If approved, this stage will fire up CodeBuild to do the `terraform apply` on the preexisting `tfplan` file.
 
 Also, if a CodeBuild project fails, an email is sent to the subsribed stakeholders.
@@ -38,11 +46,13 @@ Also, if a CodeBuild project fails, an email is sent to the subsribed stakeholde
 ![Screenshot 2024-01-22 at 14 18 07](https://github.com/anisarambelieva/devops-upskill-final-project/assets/36369561/1fb6e6d8-a253-40b2-9395-7d390d350ba9)
 ![Screenshot 2024-01-22 at 14 30 14](https://github.com/anisarambelieva/devops-upskill-final-project/assets/36369561/829c9867-36cc-4355-83a3-f15a2f3d2885)
 
-The app is deployed to an ECS (on Fargate) cluster with Internet Gateway and Application Load Balancer.
+The app is deployed to an ECS (on Fargate) cluster with Internet Gateway and Application Load Balancer. 
+
+[AWS ECS](https://aws.amazon.com/ecs/) is a fully managed service, meaning AWS handles the underlying infrastructure, updates, and maintenance tasks. This allows developers to focus on building and deploying applications without worrying about managing the container orchestration platform.
 
 <img width="1185" alt="Screenshot 2024-01-23 at 9 18 07" src="https://github.com/anisarambelieva/devops-upskill-final-project/assets/36369561/d203fd2e-ac56-4f9f-859d-2c72f410b867">
 
 ⭐️ Future improvements wishlist
-- Integrate the "Manual Approval" stage of the CodePipeline with MS Teams channel notifications. Note: Currently this is not possible as admin rights over the organization are needed.
+- Integrate the "Manual Approval" stage of the CodePipeline with MS Teams channel notifications.
 - Migrate from ECS to EKS for a more granular control over the K8s cluster
 - Use git commit SHA to tag the image in the ECR registry
