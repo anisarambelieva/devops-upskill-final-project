@@ -1,6 +1,6 @@
-# resource "aws_vpc" "ecs-vpc" {
-#   cidr_block = var.cidr
-# }
+resource "aws_vpc" "ecs-vpc" {
+  cidr_block = var.cidr
+}
 
 resource "aws_subnet" "subnets" {
   count                   = length(var.azs)
