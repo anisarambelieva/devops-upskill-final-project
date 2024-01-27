@@ -3,3 +3,7 @@ resource "aws_sns_topic_subscription" "email_subscription" {
   protocol  = "email"
   endpoint  = "anisarambelieva@gmail.com"
 }
+
+resource "aws_sns_topic" "codebuild_notifications" {
+  name = "CodeBuildNotifications"
+}
