@@ -5,6 +5,6 @@ resource "aws_sns_topic_subscription" "email_subscription" {
 }
 
 resource "aws_sns_topic" "codebuild_notifications" {
-  name = "CodeBuildNotifications"
+  name              = "CodeBuildNotifications"
   kms_master_key_id = "alias/aws/sns"
 }
