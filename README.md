@@ -1,4 +1,4 @@
-Hello! Thank you for your interest in this repository! 🥹 Here you’ll find my final project for [Telerik’s DevOps Upskill program](https://www.telerikacademy.com/upskill/devops). 
+Here you’ll find my final project for [Telerik’s DevOps Upskill program](https://www.telerikacademy.com/upskill/devops). 
 
 The goal is to build a complete automated software delivery pipeline.
 
