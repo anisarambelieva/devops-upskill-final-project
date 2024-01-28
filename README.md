@@ -108,6 +108,9 @@ The app is deployed to an ECS (on Fargate) cluster with Internet Gateway and App
 
 ### ⭐️ Future improvements wishlist
 - Integrate the "Manual Approval" stage of the CodePipeline with MS Teams channel notifications.
+
+<img width="904" alt="Screenshot 2024-01-28 at 14 30 06" src="https://github.com/anisarambelieva/devops-upskill-final-project/assets/36369561/8cb75300-7030-4902-b735-464c544e9e80">
+
 - Migrate from ECS to EKS for a more granular control over the K8s cluster
 - Use git commit SHA to tag the image in the ECR registry
 
