@@ -45,9 +45,8 @@ There are two [rules](https://support.atlassian.com/cloud-automation/docs/create
 
 ### 🛠️ Infrastructure
 
-Once the PR is merged to main, a pipeline in CodePipelines gets triggered. [AWS’s CodeStar Connections](https://docs.aws.amazon.com/codestar-connections/latest/APIReference/Welcome.html) are used to manage the integration between GitHub and CodePipeline. Note that the infrastructure for the deployment pipeline e.g. CodePipeline, CodeBuild, the IAM policies and roles, ECR, S3 bucket etc. are provisioned manually. 
+Once the PR is merged to main, a pipeline in CodePipelines gets triggered. [AWS’s CodeStar Connections](https://docs.aws.amazon.com/codestar-connections/latest/APIReference/Welcome.html) are used to manage the integration between GitHub and CodePipeline. Note that the infrastructure for the deployment pipeline e.g. CodePipeline, CodeBuild, the IAM policies and roles, ECR, S3 bucket etc. are provisioned manually by executing the following steps (only once). 
 
-To provision the required infrastructure follow these steps.
 - Clone this repository.
 ```
 git clone https://github.com/anisarambelieva/devops-upskill-final-project.git
